@@ -6,6 +6,10 @@ var companyShema = new Schema({
         type: String,
         required: [true, 'Name required']
     },
+    country: {
+        type: String,
+        required: [true, 'Country required']
+    },
     owner: {
         type: Schema.Types.ObjectId
     }

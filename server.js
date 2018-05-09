@@ -2,9 +2,15 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
 var http = require('http');
+var mongoose = require('mongoose');
 var app = express();
 
-var api = require('./server/routes/api');
+var config = require('./server/config/database');
+
+mongoose.connect(config.uri);
+
+var api_page = require('./server/routes/pages/api');
+var api_admin = require('./server/routes/admin/api');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -30,7 +36,8 @@ app.use(function (req, res, next) {
 });
 
 app.use(express.static(path.join(__dirname, 'dist')));
-app.use('/api', api);
+app.use('/api', api_page);
+app.use('admin/api', api_admin);
 
 app.get('*'), (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/index.html'));

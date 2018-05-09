@@ -1,8 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose');
-
-mongoose.connect('mongodb://localhost/room-booking');
 
 var sendError = (err, res) => {
     res.status = 501;
@@ -16,9 +13,9 @@ let response = {
     message: null
 };
 
-var UserModel = require('./../models/User');
+var UserModel = require('./../../models/User');
 
-router.get('/users', (req, res) => {
+router.get('/', (req, res) => {
     UserModel.find(function(err, users){
         if(err){
             sendError(err, res);
