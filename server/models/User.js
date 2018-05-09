@@ -10,13 +10,13 @@ var userShema = new Schema({
     },
     avatar: {
         type: String
-    }
+    },
     email: {
         type: String
     },
     password: {
         type: String
-    }
+    },
     birth_day: {
         type: Date
     },
