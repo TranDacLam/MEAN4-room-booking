@@ -102,18 +102,17 @@ userShema.methods.hashPassword = function(candidatePassword, cb){
     });
 };
 
-userShema.methods.comparePassword = function(password, cb){
+userShema.methods.comparePassword = function(password){
     var user = this;
     bcrypt.compare(password, user.password, function(err, res) {
-      if (err){
+        if (err){
         // handle error
-      }
-      if (res){
-        // Send JWT
-      } else {
-        // response is OutgoingMessage object that server response http request
-        return response.json({success: false, message: 'passwords do not match'});
-      }
+        }
+        if (res){
+            return true;
+        } else {
+            return false;
+        }
     });
 };
 
