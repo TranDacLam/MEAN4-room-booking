@@ -5,12 +5,14 @@ import { HttpModule, RequestOptions, Http } from "@angular/http";
 
 import { AppComponent } from './app.component';
 import { UsersComponent } from './components/users/users.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 @NgModule({
     declarations: [
         AppComponent,
-        UsersComponent
+        UsersComponent,
+        HomeComponent
     ],
     imports: [
         BrowserModule,

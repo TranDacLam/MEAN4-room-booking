@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UsersComponent } from './components/users/users.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 const routes: Routes = [{
         path: '',
-        component: UsersComponent
+        component: HomeComponent
     }
 ];
 // imports: [ RouterModule.forRoot(routes, { useHash: true })],
