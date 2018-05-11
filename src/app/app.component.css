@@ -1,3 +1,6 @@
+.login-modal .modal-dialog{
+    top: 15%;
+}
 .login-modal .div-forms {
     background: url(./../assets/img/bg-login.jpg);
     height: 100%;
@@ -54,8 +57,12 @@
     width: 50%;
 }
 #login-form{
-    height: 370px;
+    min-height: 370px;
 }
 a:focus{
 	outline: none;
+}
+.login-modal .content-body p.msg-err{
+    color: red;
+    font-size: 15px;
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response, Headers } from '@angular/http';
+import { tokenNotExpired } from 'angular2-jwt';
 import 'rxjs/add/operator/map';
 import "rxjs/add/operator/catch";
 
@@ -10,7 +11,9 @@ export class AuthService {
 
     httpOptions: any;
     token;
+    user;
     auth_token;
+    redirectUrl;
 
 
     constructor(private http: Http) { 
@@ -36,10 +39,22 @@ export class AuthService {
         return this.http.post(url, user).map((res: Response) => res.json()).catch(this.handleError);
     }
 
+    logout(){
+        this.auth_token = null;
+        this.user = null;
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+    }
+
     storeUserData(token, user) {
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
         this.auth_token = token;
+        this.user = user;
+    }
+
+    isLoggedIn(){
+        return tokenNotExpired();
     }
 
     // exception
