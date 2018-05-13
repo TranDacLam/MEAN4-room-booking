@@ -9,8 +9,7 @@ var config = require('./server/config/database');
 
 mongoose.connect(config.uri);
 
-var api_page = require('./server/routes/pages/api');
-var api_admin = require('./server/routes/admin/api');
+var api = require('./server/routes/api');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -25,7 +24,7 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
     // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, authorization');
 
     // Set to true if you need the website to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)
@@ -36,8 +35,7 @@ app.use(function (req, res, next) {
 });
 
 app.use(express.static(path.join(__dirname, 'dist')));
-app.use('/api', api_page);
-app.use('admin/api', api_admin);
+app.use('/', api);
 
 app.get('*'), (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/index.html'));

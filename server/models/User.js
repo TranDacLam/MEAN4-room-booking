@@ -42,6 +42,9 @@ var userShema = new Schema({
     password: {
         type: String
     },
+    intro_yourself: {
+        type: String
+    },
     birth_day: {
         type: Date
     },
@@ -58,6 +61,9 @@ var userShema = new Schema({
         type: String
     },
     possition: {
+        type: String
+    },
+    link_facebook: {
         type: String
     },
     is_active: {
