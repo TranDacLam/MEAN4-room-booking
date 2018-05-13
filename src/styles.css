@@ -1,5 +1,9 @@
-#mainNav{
-    background-color: #212529;
-    padding-top: 0;
-    padding-bottom: 0;
+.auth form .form-group ul li {
+	font-size: 13px;
+}
+.msg-err {
+	color: red;
+}
+.nav-logout, .nav-profile{
+	cursor: pointer;
 }

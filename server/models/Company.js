@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var Branch = require('./Branch');
 
 var companyShema = new Schema({
     name: {
@@ -12,7 +13,8 @@ var companyShema = new Schema({
     },
     owner: {
         type: Schema.Types.ObjectId
-    }
+    },
+    branchs: [{ type: Schema.Types.ObjectId, ref: 'Branch' }]
 });
 
 module.exports = mongoose.model('Company', companyShema);

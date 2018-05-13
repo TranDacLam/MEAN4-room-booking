@@ -1,29 +1,21 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Branch = require('./Branch');
-var User = require('./User');
+var Room = require('./Room');
+var TimeBooking = require('./TimeBooking');
 
 var BookingchShema = new Schema({
     date: {
         type: Date,
         required: [true, 'Date required']
     },
-    start_time: {
-        type: String,
-        required: [true, 'Start time required']
-    },
-    end_time: {
-        type: String,
-        required: [true, 'End time required']
-    },
-    branch: {
+    room: {
         type: Schema.Types.ObjectId,
-        ref: 'Branch'
+        ref: 'Room'
     },
-    user: {
+    time_bookings: [{
         type: Schema.Types.ObjectId,
-        ref: 'User'
-    }
+        ref: 'TimeBooking'
+    }]
 });
 
 module.exports = mongoose.model('Booking', BookingchShema);

@@ -3,6 +3,7 @@ var bcrypt = require('bcryptjs');
 var Schema = mongoose.Schema;
 var Role = require('./Role');
 var Branch = require('./Branch');
+var TimeBooking = require('./TimeBooking');
 
 let emailLengthChecker = (email) => {
     if(!email){
@@ -78,6 +79,10 @@ var userShema = new Schema({
         type: Schema.Types.ObjectId, 
         ref: 'Branch' 
     },
+    time_bookings: [{ 
+        type: Schema.Types.ObjectId, 
+        ref: 'TimeBooking' 
+    }]
 });
 
 

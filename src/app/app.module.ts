@@ -1,44 +1,49 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app.routing';
+import { AppRoutingModule } from './app-routing.module';
 import { HttpModule, RequestOptions, Http } from "@angular/http";
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr'; // https://github.com/scttcper/ngx-toastr
 
-import { AppComponent } from './app.component';
-import { UsersComponent } from './components/users/users.component';
-import { HomeComponent } from './components/home/home.component';
-import { ShowErrorValidComponent } from './components/show-error-valid/show-error-valid.component';
-import { AboutComponent } from './components/about/about.component';
+import { AdminModule } from './admin/admin.module';
+import { PublicModule } from './public/public.module';
 
-import { AuthService } from './shared/services/auth.service';
+import { AppComponent } from './app.component';
+import { ShowErrorValidComponent } from './admin/components/show-error-valid/show-error-valid.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoginComponent } from './login/login.component';
+
+import { AuthService } from './auth.service';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { NotAuthGuard } from './shared//guards/not-auth.guard';
 
 @NgModule({
     declarations: [
         AppComponent,
-        UsersComponent,
-        HomeComponent,
         ShowErrorValidComponent,
-        AboutComponent
+        PageNotFoundComponent,
+        LoginComponent
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
+        AdminModule,
+        PublicModule,
         AppRoutingModule,
         HttpModule,
         ReactiveFormsModule,
         FormsModule,
         HttpClientModule,
         ToastrModule.forRoot({
-            positionClass: 'toast-top-full-width',
+            closeButton: true,
+            positionClass: 'toast-top-right',
             maxOpened: 1,
             autoDismiss: true,
-            timeOut: 5000
+            timeOut: 5000,
+            progressBar: true
         }), // ToastrModule added
     ],
     providers: [
