@@ -6,7 +6,7 @@ import { HttpModule, RequestOptions, Http } from "@angular/http";
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { ToastrModule } from 'ngx-toastr'; // https://github.com/scttcper/ngx-toastr
+import { ToastrModule } from 'ngx-toastr'; // https://github.com/scttcper/ngx-toastr;
 
 import { AdminModule } from './admin/admin.module';
 import { PublicModule } from './public/public.module';
@@ -20,6 +20,7 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { NotAuthGuard } from './shared//guards/not-auth.guard';
 import { AuthRequestOptions } from './shared/guards/auth-request';
+import { ScrollTop } from './shared/common/scroll-top';
 
 @NgModule({
     declarations: [
@@ -54,7 +55,8 @@ import { AuthRequestOptions } from './shared/guards/auth-request';
         {
             provide: RequestOptions, 
             useClass: AuthRequestOptions
-        }
+        },
+        ScrollTop
     ],
     bootstrap: [AppComponent]
 })

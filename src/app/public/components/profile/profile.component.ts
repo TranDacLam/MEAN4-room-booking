@@ -5,6 +5,8 @@ import { ProfileService } from './../../services/profile.service';
 import { User } from './../../../shared/class/user';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from './../../../../environments/environment';
+import { ScrollTop } from './../../../shared/common/scroll-top';
+import { ValidateSubmit } from './../../../shared/validators/validate-submit';
 
 declare var $ :any; // declare Jquery
 
@@ -27,6 +29,7 @@ export class ProfileComponent implements OnInit {
   		private fb: FormBuilder,
   		private profileService: ProfileService,
   		private toastr: ToastrService,
+        private scrollTop: ScrollTop
   	) { }
 
   	ngOnInit() {
@@ -69,7 +72,6 @@ export class ProfileComponent implements OnInit {
   				this.user = result.user;
   				this.creatForm();
   				this.creatFormAvatar();
-  				console.log(result);
   			},
   			(error) => {
   				console.log(error);
@@ -127,14 +129,20 @@ export class ProfileComponent implements OnInit {
     }
 
   	onSubmitProfile(){
-  		this.profileService.putProfile(this.formProfile.value).subscribe(
-  			(result) => {
-  				console.log(result);
-  				this.user = result.user;
-  			},
-  			(error) => {
-  				console.log(error);
-  			}
-  		);
+        if(this.formProfile.invalid){
+            ValidateSubmit.validateAllFormFields(this.formProfile);
+            this.scrollTop.scrollTopFom();
+        }else{
+      		this.profileService.putProfile(this.formProfile.value).subscribe(
+      			(result) => {
+      				this.toastr.success("Update profile successful!");
+      				this.user = result.user;
+                    this.scrollTop.scrollTopFom();
+      			},
+      			(error) => {
+      				console.log(error);
+      			}
+      		);
+        }
   	}
 }

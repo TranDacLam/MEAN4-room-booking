@@ -7,3 +7,9 @@
 .nav-logout, .nav-profile{
 	cursor: pointer;
 }
+.mt-30 {
+	margin-top: 30px;
+}
+.mb-30{
+	margin-bottom: 30px;
+}
