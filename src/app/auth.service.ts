@@ -44,6 +44,7 @@ export class AuthService {
         this.user = null;
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        localStorage.removeItem('exp_time');
     }
 
     storeUserData(token, user) {

@@ -19,6 +19,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { NotAuthGuard } from './shared//guards/not-auth.guard';
+import { AuthRequestOptions } from './shared/guards/auth-request';
 
 @NgModule({
     declarations: [
@@ -49,7 +50,11 @@ import { NotAuthGuard } from './shared//guards/not-auth.guard';
     providers: [
         AuthService,
         AuthGuard,
-        NotAuthGuard
+        NotAuthGuard,
+        {
+            provide: RequestOptions, 
+            useClass: AuthRequestOptions
+        }
     ],
     bootstrap: [AppComponent]
 })

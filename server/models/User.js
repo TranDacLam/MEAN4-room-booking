@@ -113,22 +113,15 @@ userShema.methods.hashPassword = function(candidatePassword, cb){
     });
 };
 
-userShema.methods.comparePassword = function(password){
+userShema.methods.comparePassword = function(password, cb){
     var user = this;
     bcrypt.compare(password, user.password, function(err, res) {
         if (err){
-        // handle error
+            return cb(err, null);
         }
-        if (res){
-            return true;
-        } else {
-            return false;
-        }
+        return cb(null, res);
     });
 };
 
-userShema.methods.checkPasswordConfirm = function(pw1, pw2){
-    return pw1 === pw2;
-};
 
 module.exports = mongoose.model('User', userShema);

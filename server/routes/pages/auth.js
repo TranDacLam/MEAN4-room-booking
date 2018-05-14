@@ -7,51 +7,29 @@ var UserModel = require('./../../models/User');
 
 router.post('/', (req, res) => {
     if(!req.body.email || !req.body.password) {
-        res.json({success: false, message: "Invalid email or password."});
+        res.status(400).json({status: 400, message: "Invalid email or password."});
     }else{
         UserModel.findOne({email: req.body.email.toLowerCase()}, (err, user) => {
             if(err){
-                res.json({success: false, message: err});
+                res.status(500).json({status: 500, message: err});
             }else{
-                if(!user || user.comparePassword(req.body.password)){
-                    res.json({success: false, message: "Invalid email or password."});
+                if(!user){
+                    res.status(404).json({status: 404, message: "User not found."});
                 }else{
-                    const token = jwt.sign({ userId: user._id }, config.secret, {expiresIn: '24h'});
-                    res.json({success: true, status: 200, message: 'success', token: token, user: user.email});
+                    user.comparePassword(req.body.password, function(err, isMatch){
+                        if(err)
+                            res.status(500).json({status: 500, message: err});
+                        if(isMatch){
+                            const token = jwt.sign({ userId: user._id }, config.secret);
+                            res.status(200).json({status: 200, message: 'success', token: token, user: user.email});
+                        }else{
+                            res.status(400).json({status: 400, message: "Invalid email or password."});
+                        }
+                    })
                 }
             }
         });
     }
-});
-
-router.use((req, res, next) => {
-    const token = req.headers['authorization'];
-    if(!token){
-        res.json({success: false, message: "No token provided"});
-    }else{
-        jwt.verify(token, config.secret, (err, decoded) => {
-            if(err){
-                res.json({success: false, message: "Token invalid" + err});
-            }else{
-                req.decoded = decoded;
-                next();
-            }
-        });
-    }
-});
-
-router.post('/profile', (req, res) => {
-    UserModel.findOne({_id: req.decoded.userId}, (err, user) => {
-        if(err){
-            res.json({success: false, message: err});
-        }else{
-            if(!user){
-                res.json({success: false, message: "User not found."});
-            }else{
-                res.json({success: true, user: user});
-            }
-        }
-    });
 });
 
 module.exports = router;

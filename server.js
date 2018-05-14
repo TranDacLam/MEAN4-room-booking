@@ -24,7 +24,7 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
     // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, authorization');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Accept, Content-Type, Authorization');
 
     // Set to true if you need the website to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)
@@ -34,7 +34,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'uploads/')));
 app.use('/', api);
 
 app.get('*'), (req, res) => {

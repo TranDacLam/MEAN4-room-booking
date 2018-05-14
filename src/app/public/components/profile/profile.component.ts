@@ -4,6 +4,9 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { ProfileService } from './../../services/profile.service';
 import { User } from './../../../shared/class/user';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from './../../../../environments/environment';
+
+declare var $ :any; // declare Jquery
 
 @Component({
   	selector: 'app-profile',
@@ -16,6 +19,9 @@ export class ProfileComponent implements OnInit {
 	user: User;
 	formProfile: FormGroup;
 	formAvatar: FormGroup;
+    formChangePassword: FormGroup;
+
+    domain_root: string = '';
 
   	constructor(
   		private fb: FormBuilder,
@@ -24,8 +30,9 @@ export class ProfileComponent implements OnInit {
   	) { }
 
   	ngOnInit() {
+        this.domain_root = environment.domain_root;
   		this.getProfile();
- 
+        this.creatFormChangePassword();
   	}
 
   	creatForm(): void{
@@ -46,6 +53,13 @@ export class ProfileComponent implements OnInit {
     creatFormAvatar(): void{
         this.formAvatar = this.fb.group({
             avatar: [],
+        });
+    }
+
+    creatFormChangePassword(): void{
+        this.formChangePassword = this.fb.group({
+            password: ['', [Validators.required]],
+            new_password: ['', [Validators.required]],
         });
     }
 
@@ -74,19 +88,42 @@ export class ProfileComponent implements OnInit {
         }
     }
 
+    onSubmitChangePass(){
+        this.profileService.putChangePassword(this.formChangePassword.value).subscribe(
+            (result) => {
+                this.formChangePassword.reset();
+                this.toastr.success("Update password successful!")
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }
+
+    onCancelPassword(){
+        this.formChangePassword.reset();
+    }
+
     onSubmitAvatar(){
-    	const formData = new FormData();
-    	let formValue = this.formAvatar.value;
-    	console.log(formValue)
-    	formData.append('avatar', formValue.avatar.value, formValue.avatar.filename);
-    	this.profileService.putAvatar(formData).subscribe(
+        let fd:FormData = new FormData();
+        let formValues = this.formAvatar.value;
+        fd.append('avatar', formValues.avatar.value);
+    	this.profileService.putAvatar(fd).subscribe(
     		(result) => {
-    			console.log(result);
+                this.user = result.user;
+                $("#avatar-image").val("");
+                this.formAvatar.reset();
+    			this.toastr.success("Update avatar successful!")
     		},
     		(error) => {
     			console.log(error);
     		}
     	);
+    }
+
+    onCancelAvatar(){
+        $("#avatar-image").val("");
+        this.formAvatar.reset();
     }
 
   	onSubmitProfile(){

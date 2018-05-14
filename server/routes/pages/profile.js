@@ -2,19 +2,16 @@ var express = require('express');
 var router = express.Router();
 var multer = require('multer');
 
- var storage = multer.diskStorage({ //multers disk storage settings
+var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './uploads/');
+        cb(null, './uploads/avatar/')
     },
     filename: function (req, file, cb) {
-        var datetimestamp = Date.now();
-        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
+        cb(null, Date.now() + '-' + file.originalname)
     }
-});
+})
 
-var upload = multer({ //multer settings
-    storage: storage
-}).single('file');
+var upload = multer({ storage: storage }).single('avatar');
 
 var UserModel = require('./../../models/User');
 
@@ -48,8 +45,6 @@ router.put('/', (req, res) => {
             user.link_facebook = req.body.link_facebook;
             user.modified = new Date();
 
-            console.log(user)
-
             user.save(function(err) {
                 if (err)
                     res.status(400).json({status: 400, message: err });
@@ -59,15 +54,55 @@ router.put('/', (req, res) => {
     });
 });
 
-router.put('/upload', function(req, res) {
-    upload(req,res,function(err){
-        console.log(req.file);
+router.put('/change-password', (req, res) => {
+    UserModel.findOne({_id: req.decoded.userId}, (err, user) => {
         if(err){
-             res.json({error_code:1,err_desc:err});
-             return;
+            res.status(500).json({status: 500, message: err});
+        }else{
+            if(!user){
+                res.status(404).json({status: 404, message: "User not found."});
+            }else{
+                user.comparePassword(req.body.password, function(err, isMatch){
+                    if(err)
+                        res.status(500).json({status: 500, message: err});
+                    if(isMatch){
+                        user.password = req.body.new_password;
+                        user.modified = new Date();
+                        user.save(function(err) {
+                            if (err)
+                                res.status(400).json({status: 400, message: err });
+                            res.status(200).json({status: 200, message: 'User updated!', user: user });
+                        });
+                    }else{
+                        res.status(400).json({status: 400, message: "Invalid email or password."});
+                    }
+                });
+            }
         }
-        res.json({error_code:0,err_desc:null});
     });
+});
+
+router.put('/upload', (req, res, next) => {
+    upload(req, res, function (err) {
+        if (err) {
+            res.status(500).json({status: 500, message: err});
+        }
+        UserModel.findOne({_id: req.decoded.userId}, (err, user) => {
+            if(err){
+                res.status(500).json({status: 500, message: err});
+            }else{
+                user.avatar = '/avatar/' + req.file.filename;
+                user.modified = new Date();
+
+                user.save(function(err) {
+                    if (err)
+                        res.status(400).json({status: 400, message: err });
+                    res.status(200).json({status: 200, message: 'User updated!', user: user });
+                });
+            }
+        });
+    })
+    
 });
 
 module.exports = router;

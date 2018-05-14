@@ -3,7 +3,7 @@ var router = express.Router();
 var jwt = require('jsonwebtoken');
 var config = require('./../../config/database'); 
 
-var routerAuth = require('./../auth');
+var routerAuth = require('./auth');
 var routerProfile = require('./profile');
 
 

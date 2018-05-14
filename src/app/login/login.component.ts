@@ -7,7 +7,6 @@ import { AuthGuard } from './../shared/guards/auth.guard';
 import { ToastrService } from 'ngx-toastr';
 import 'rxjs/add/observable/throw';
 
-declare var $ :any; // declare Jquery
 
 @Component({
   selector: 'app-login',
@@ -56,20 +55,16 @@ export class LoginComponent implements OnInit {
         	console.log(this.formLogin.value)
         	this.authService.login(this.formLogin.value).subscribe(
         		(result) => {
-        			if(result.success === false){
-        				this.msg_err = result.message;
-        			}else{
-        				this.authService.storeUserData(result.token, result.user);
-                        $('#login').modal('toggle');
-                        if(this.prevUrl){
-                            this.router.navigate([this.prevUrl]);
-                        }else{
-                            this.router.navigate(['/']);
-                        }
-        			}
+        			this.authService.storeUserData(result.token, result.user);
+                    if(this.prevUrl){
+                        this.router.navigate([this.prevUrl]);
+                    }else{
+                        this.router.navigate(['/']);
+                    }
         		},
         		(error) => {
         			console.log("error", error)
+                    this.msg_err = error.message;
         		}
         	);
         }
