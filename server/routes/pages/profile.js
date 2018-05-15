@@ -14,6 +14,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage }).single('avatar');
 
 var UserModel = require('./../../models/User');
+var RoleModel = require('./../../models/Role');
 
 router.get('/', (req, res) => {
     UserModel.findOne({_id: req.decoded.userId}, (err, user) => {
@@ -23,7 +24,14 @@ router.get('/', (req, res) => {
             if(!user){
                 res.status(404).json({status: 404, message: "User not found."});
             }else{
-                res.status(200).json({status: 200, user: user});
+                RoleModel.findOne({_id: user.role}, (err, role) => {
+                    if(err){
+                        res.status(500).json({status: 500, message: err});
+                    }else{
+                        user.role = role;
+                        res.status(200).json({status: 200, user: user});
+                    }
+                });
             }
         }
     });

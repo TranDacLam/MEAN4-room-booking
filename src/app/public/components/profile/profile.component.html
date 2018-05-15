@@ -1,3 +1,11 @@
+<div class="row">
+    <nav aria-label="breadcrumb" class="nav-breadcrumb" role="navigation">
+        <ol class="breadcrumb breadcrumb-custom">
+            <li class="breadcrumb-item"><a routerLink="">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><span>Profile</span></li>
+        </ol>
+    </nav>
+</div>
 <div class="content-wrapper">
     <div class="row user-profile" *ngIf="user">
         <div class="col-lg-4 side-left d-flex align-items-stretch">
@@ -8,7 +16,7 @@
                             <h4 class="card-title">Info</h4>
                             <img src="{{domain_root}}{{user.avatar}}" alt="" />
                             <p class="name">{{user.full_name}}</p>
-                            <p class="designation">-----</p>
+                            <p class="designation">--- {{user.role.name}} ---</p>
                             <a class="d-block text-center text-dark" href="#">{{user.email}}</a>
                             <a class="d-block text-center text-dark" href="#">{{user.phone}}</a>
                         </div>
@@ -58,13 +66,13 @@
                                         <div class="form-group col-md-6">
                                             <label>Full Name</label>
                                             <input type="text" class="form-control" placeholder="Change full name" 
-                                                value="{{user.full_name}}" formControlName="full_name"
+                                                formControlName="full_name"
                                             />
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Birth day</label>
                                             <input type="text" class="form-control" placeholder="Change birth day" 
-                                                value="{{user.birth_day}}" formControlName="birth_day"
+                                                formControlName="birth_day"
                                             />
                                         </div>
                                     </div>
@@ -72,13 +80,13 @@
                                         <div class="form-group col-md-6">
                                             <label>Email</label>
                                             <input type="email" class="form-control" placeholder="Change email" 
-                                                value="{{user.email}}" formControlName="email"
+                                                formControlName="email"
                                             />
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Phone Number</label>
                                             <input type="text" class="form-control" placeholder="Change phone number" 
-                                                value="{{user.phone}}" formControlName="phone"
+                                                formControlName="phone"
                                             />
                                         </div>
                                     </div>
@@ -86,13 +94,13 @@
                                         <div class="form-group col-md-6">
                                             <label>Country</label>
                                             <input type="text" class="form-control" placeholder="Change country" 
-                                                value="{{user.country}}" formControlName="country"
+                                                formControlName="country"
                                             />
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Personal ID</label>
                                             <input type="text" class="form-control" placeholder="Change personal id" 
-                                                value="{{user.personal_id}}" formControlName="personal_id"
+                                                formControlName="personal_id"
                                             />
                                         </div>
                                     </div>
@@ -100,30 +108,30 @@
                                         <div class="form-group col-md-6">
                                             <label>Possition</label>
                                             <input type="text" class="form-control" placeholder="Change possition" 
-                                                value="{{user.possition}}" formControlName="possition"
+                                                formControlName="possition"
                                             />
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>URL facebook</label>
                                             <input type="text" class="form-control" placeholder="Change url facebook" 
-                                                value="{{user.link_facebook}}" formControlName="link_facebook"
+                                                formControlName="link_facebook"
                                             />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label>Address</label>
                                         <textarea rows="3" class="form-control" placeholder="Change address"
-                                            value="{{user.address}}" formControlName="address"
+                                            formControlName="address"
                                         ></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label>Introduce yourself</label>
                                         <textarea name="intro_yourself" rows="4" class="form-control" placeholder="Change intro yourself"
-                                            value="{{user.intro_yourself}}" formControlName="intro_yourself"
+                                            formControlName="intro_yourself"
                                         ></textarea>
                                     </div>
                                     <div class="form-group mt-5">
-                                        <button class="btn btn-success mr-2" (click)="onSubmitProfile()">Update</button>
+                                        <button class="btn btn-primary btn-fw" (click)="onSubmitProfile()">SAVE</button>
                                         <!-- <button class="btn btn-outline-danger">Cancel</button> -->
                                     </div>
                                 </form>
@@ -154,8 +162,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group mt-5">
-                                        <button class="btn btn-success mr-2" (click)="onSubmitAvatar()">Update</button>
-                                        <button class="btn btn-outline-danger" (click)="onCancelAvatar()">Cancel</button>
+                                        <button class="btn btn-primary btn-fw" (click)="onSubmitAvatar()">SAVE</button>
+                                        <button class="btn btn-outline-danger" (click)="onCancelAvatar()">CANCEL</button>
                                     </div>
                                 </form>
                             </div>
@@ -173,8 +181,8 @@
                                         />
                                     </div>
                                     <div class="form-group mt-5">
-                                        <button class="btn btn-success mr-2" (click)="onSubmitChangePass()">Update</button>
-                                        <button class="btn btn-outline-danger" (click)="onCancelPassword()">Cancel</button>
+                                        <button class="btn btn-primary btn-fw" (click)="onSubmitChangePass()">SAVE</button>
+                                        <button class="btn btn-outline-danger" (click)="onCancelPassword()">CANCEL</button>
                                     </div>
                                 </form>
                             </div>

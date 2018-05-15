@@ -1,3 +1,185 @@
-<p>
-  form-member works!
-</p>
+<div class="row">
+    <nav aria-label="breadcrumb" class="nav-breadcrumb" role="navigation">
+        <ol class="breadcrumb breadcrumb-custom">
+            <li class="breadcrumb-item"><a routerLink="">Home</a></li>
+            <li class="breadcrumb-item"><a routerLink="/member/list">Members</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><span>Add Member</span></li>
+        </ol>
+    </nav>
+</div>
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">{{title_page}}</h4>
+                    <form [formGroup]="formMember" class="form-sample" *ngIf="member">
+                        <p class="card-description">
+                            Personal info
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Full Name <span class="required">*</span></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" 
+                                            formControlName="full_name"
+                                        />
+                                    </div>
+                                    <show-error-valid [control]="formMember.get('full_name')"></show-error-valid>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Date of Birth</label>
+                                    <div class="col-sm-9">
+                                        <input id="birth_date" class="form-control" placeholder="dd/mm/yyyy" 
+                                            formControlName="birth_day"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Email <span class="required">*</span></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" 
+                                            formControlName="email"
+                                        />
+                                    </div>
+                                    <show-error-valid [control]="formMember.get('email')"></show-error-valid>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Phone Number</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" 
+                                            formControlName="phone"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Personal ID</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" 
+                                            formControlName="personal_id"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Possition</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" 
+                                            formControlName="possition"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6" *ngIf="!member._id">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Password <span class="required">*</span></label>
+                                    <div class="col-sm-9">
+                                        <div class="input-group mb-3 change-password">
+                                            <input type="password" class="form-control" #change_password
+                                                formControlName="password"
+                                            />
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" 
+                                                    (click)="showPassword(change_password)"
+                                                >
+                                                    <i class="fa fa-eye-slash toggle-password"></i>
+                                                </button>
+                                            </div>
+                                            <show-error-valid [control]="formMember.get('password')"></show-error-valid>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="card-description">
+                            Address info
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label">Address</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" 
+                                            formControlName="address"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Country</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" 
+                                            formControlName="country"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="card-description">
+                            Other
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Type Member</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control">
+                                            <option>System Admin</option>
+                                            <option>Manager Companny</option>
+                                            <option>Manager Branch</option>
+                                            <option>Member</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6" *ngIf="member._id">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Change Password</label>
+                                    <div class="col-sm-9">
+                                        <div class="input-group mb-3 change-password">
+                                            <input type="password" class="form-control" #change_password 
+                                                [attr.disabled]="is_disabled_password ? true: null"
+                                                formControlName="new_password"
+                                            />
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" (click)="showPassword(change_password)"
+                                                    [disabled]="is_disabled_password"
+                                                >
+                                                    <i class="fa fa-eye-slash toggle-password"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <input type="checkbox" (change)='is_disabled_password = !is_disabled_password'/> 
+                                        <span class="change_pw_admin">Thay đổi mật khẩu(Chức năng này chỉ dành cho System Admin)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pull-right mt-50">
+                            <button class="btn btn-primary btn-fw" (click)="onSubmit()">SAVE</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

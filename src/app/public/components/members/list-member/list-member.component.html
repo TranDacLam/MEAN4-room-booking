@@ -1,8 +1,8 @@
 <div class="row">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
+    <nav aria-label="breadcrumb" class="nav-breadcrumb" role="navigation">
+        <ol class="breadcrumb breadcrumb-custom">
             <li class="breadcrumb-item"><a routerLink="">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">List Member</li>
+            <li class="breadcrumb-item active" aria-current="page"><span>Members</span></li>
         </ol>
     </nav>
 </div>
@@ -26,8 +26,8 @@
                     	(change)="selectAllEvent($event);"
                     	/>
                     </th>
-                    <th>ID</th>
-                    <th>Email</th>
+                    <th><span>ID</span></th>
+                    <th><span>Email</span></th>
                 </tr>
             </thead>
             <tbody>

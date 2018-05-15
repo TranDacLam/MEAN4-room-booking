@@ -10,6 +10,54 @@
 .mt-30 {
 	margin-top: 30px;
 }
+.mt-50 {
+    margin-top: 50px;
+}
 .mb-30{
 	margin-bottom: 30px;
 }
+.nav-breadcrumb{
+    width: 100%;
+}
+.breadcrumb-custom{
+    margin-left: 10px;
+}
+.card-description{
+    font-weight: 600;
+}
+.required{
+    color: red;
+}
+
+/* TABLE */
+
+.dataTables_wrapper select{
+    display: inline-block;
+    width: auto;
+}
+
+/* === Begin Customize icon sort dataTable ==*/
+/*Hiden background image icon sort default dataTable*/
+table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc,
+table.dataTable thead .sorting {
+    background: none;
+}
+table.dataTable thead .sorting > span,
+table.dataTable thead .sorting_asc > span,
+table.dataTable thead .sorting_desc > span{
+    padding-right: 20px;
+    /*display: inline-table;*/
+}
+/*Append icon sort image*/
+table.dataTable thead .sorting_asc > span  {
+    background: url("assets/images/sort_asc.png") right center no-repeat ;
+}
+table.dataTable thead .sorting_desc > span{
+    background: url("assets/images/sort_desc.png") right center no-repeat;
+}
+table.dataTable thead .sorting > span{
+    background: url("assets/images/sort_both.png") right center no-repeat;
+}
+/* === End Customize icon sort dataTable === */
+
+/* END TABLE */

@@ -52,7 +52,6 @@ export class LoginComponent implements OnInit {
     	if(this.formLogin.invalid){
             ValidateSubmit.validateAllFormFields(this.formLogin);
         }else{
-        	console.log(this.formLogin.value)
         	this.authService.login(this.formLogin.value).subscribe(
         		(result) => {
         			this.authService.storeUserData(result.token, result.user);

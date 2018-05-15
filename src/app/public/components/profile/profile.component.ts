@@ -70,6 +70,7 @@ export class ProfileComponent implements OnInit {
   		this.profileService.getProfile().subscribe(
   			(result) => {
   				this.user = result.user;
+                console.log(result.user)
   				this.creatForm();
   				this.creatFormAvatar();
   			},

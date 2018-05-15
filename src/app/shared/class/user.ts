@@ -3,6 +3,7 @@ export class User {
 	full_name: string;
 	avatar: string|any;
 	email: string;
+	password: string;
 	intro_yourself: string;
 	birth_day: string;
 	personal_id: string;
