@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PublicRoutingModule } from './public-routing.module';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
-import { DataTablesModule } from 'angular-datatables';
+import { SharedModule } from './../shared.module';
 
 import { PublicComponent } from './public.component';
 import { HomeComponent } from './components/home/home.component';
@@ -14,10 +12,8 @@ import { FormMemberComponent } from './components/members/form-member/form-membe
 @NgModule({
   	imports: [
   		CommonModule,
-  		PublicRoutingModule,
-  		ReactiveFormsModule,
-  		FormsModule,
-      DataTablesModule
+        SharedModule,
+  		PublicRoutingModule
   	],
   	declarations: [
   		PublicComponent, 

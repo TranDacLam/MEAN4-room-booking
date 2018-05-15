@@ -6,7 +6,7 @@ var config = require('./../../config/database');
 var routerAuth = require('./auth');
 var routerProfile = require('./profile');
 var routerMember = require('./member');
-
+var routerRole = require('./role');
 
 router.use('/auth', routerAuth);
 
@@ -29,5 +29,6 @@ router.use((req, res, next) => {
 
 router.use('/profile', routerProfile);
 router.use('/member', routerMember);
+router.use('/role', routerRole);
 
 module.exports = router;

@@ -25,8 +25,8 @@
                                         <input type="text" class="form-control" 
                                             formControlName="full_name"
                                         />
+                                        <show-error-valid [control]="formMember.get('full_name')"></show-error-valid>
                                     </div>
-                                    <show-error-valid [control]="formMember.get('full_name')"></show-error-valid>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -46,10 +46,10 @@
                                     <label class="col-sm-3 col-form-label">Email <span class="required">*</span></label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" 
-                                            formControlName="email"
+                                            formControlName="email" autocomplete="off"
                                         />
+                                        <show-error-valid [control]="formMember.get('email')"></show-error-valid>
                                     </div>
-                                    <show-error-valid [control]="formMember.get('email')"></show-error-valid>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -90,9 +90,9 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Password <span class="required">*</span></label>
                                     <div class="col-sm-9">
-                                        <div class="input-group mb-3 change-password">
+                                        <div class="input-group change-password">
                                             <input type="password" class="form-control" #change_password
-                                                formControlName="password"
+                                                formControlName="password" autocomplete="new-password"
                                             />
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-secondary" 
@@ -101,8 +101,8 @@
                                                     <i class="fa fa-eye-slash toggle-password"></i>
                                                 </button>
                                             </div>
-                                            <show-error-valid [control]="formMember.get('password')"></show-error-valid>
                                         </div>
+                                        <show-error-valid [control]="formMember.get('password')"></show-error-valid>
                                     </div>
                                 </div>
                             </div>
@@ -138,14 +138,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Type Member</label>
-                                    <div class="col-sm-9">
-                                        <select class="form-control">
-                                            <option>System Admin</option>
-                                            <option>Manager Companny</option>
-                                            <option>Manager Branch</option>
-                                            <option>Member</option>
+                                    <label class="col-sm-3 col-form-label">Role Member</label>
+                                    <div class="col-sm-9" *ngIf="roles">
+                                        <select class="form-control" formControlName="role">
+                                            <option value="">-- SELECT ROLE --</option>
+                                            <option *ngFor="let role of roles" [value] ="role._id">{{ role.name }}</option>
                                         </select>
+                                        <show-error-valid [control]="formMember.get('role')"></show-error-valid>
                                     </div>
                                 </div>
                             </div>

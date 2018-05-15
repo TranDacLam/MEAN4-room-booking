@@ -4,9 +4,12 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import "inputmask/dist/inputmask/inputmask.numeric.extensions";
 import * as Inputmask from "inputmask/dist/inputmask/inputmask.date.extensions";
 import { User } from './../../../../shared/class/user';
+import { Role } from './../../../../shared/class/role';
 import { MemberService } from './../../../services/member.service';
+import { RoleService } from './../../../services/role.service';
 import { ScrollTop } from './../../../../shared/common/scroll-top';
 import { ValidateSubmit } from './../../../../shared/validators/validate-submit';
+import { ToastrService } from 'ngx-toastr';
 
 declare var $ :any; // declare Jquery
 
@@ -14,13 +17,14 @@ declare var $ :any; // declare Jquery
     selector: 'app-form-member',
     templateUrl: './form-member.component.html',
     styleUrls: ['./form-member.component.css'],
-    providers: [MemberService]
+    providers: [MemberService, RoleService]
 })
 export class FormMemberComponent implements OnInit {
 
     formMember: FormGroup;
 
     member: User;
+    roles: Role[];
     title_page: string = '';
     is_disabled_password: boolean = true;
 
@@ -29,7 +33,9 @@ export class FormMemberComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private memberService: MemberService,
-        private scrollTop: ScrollTop
+        private roleService: RoleService,
+        private scrollTop: ScrollTop,
+        private toastr: ToastrService
     ) { }
 
     ngOnInit() {
@@ -45,6 +51,7 @@ export class FormMemberComponent implements OnInit {
             this.member = new User();
             this.creatForm();
         }
+        this.getRoles();
     }
 
     creatForm(): void{
@@ -60,8 +67,20 @@ export class FormMemberComponent implements OnInit {
             country: [this.member.country],
             address: [this.member.address],
             possition: [this.member.possition],
-            link_facebook: [this.member.link_facebook]
+            link_facebook: [this.member.link_facebook],
+            role: [this.member.role, Validators.required]
         });
+    }
+
+    getRoles(){
+        this.roleService.getRoles().subscribe(
+            (result) => {
+                this.roles = result.roles;
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
     }
 
     getMember(){
@@ -79,7 +98,8 @@ export class FormMemberComponent implements OnInit {
             }else{
                 this.memberService.addMember(this.formMember.value).subscribe(
                     (result) => {
-                        console.log(result)
+                        this.toastr.success("Add member successful!");
+                        this.router.navigate(['/member/list']);
                     },
                     (error) => {
                         console.log('err', error);
